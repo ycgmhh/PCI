@@ -1,15 +1,15 @@
-// ConsoleApplication4.cpp : ¶¨Òå¿ØÖÆÌ¨Ó¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
+// ConsoleApplication4.cpp : å®šä¹‰æ§åˆ¶å°åº”ç”¨ç¨‹åºçš„å…¥å£ç‚¹ã€‚
 //
 
 #include "stdafx.h"
 #include <stdio.h>
 #include <windows.h>
-#include "winio.h"  //µ¼ÈëwinioÍ·ÎÄ¼ş
+#include "winio.h"  //å¯¼å…¥winioå¤´æ–‡ä»¶
 //#include  <minwindef.h>
 //#include <stdlib.h>
-#define PCI_CONFIG_ADDRESS 0xcf8  //pciµØÖ·Ó³Éä
-#define PCI_CONFIG_DATA 0xcfc  //pciÊı¾İÓ³Éä
-#pragma comment(lib,"winio.lib")  //µ¼Èëwinio¿âÎÄ¼ş
+#define PCI_CONFIG_ADDRESS 0xcf8  //pciåœ°å€æ˜ å°„
+#define PCI_CONFIG_DATA 0xcfc  //pciæ•°æ®æ˜ å°„
+#pragma comment(lib,"winio.lib")  //å¯¼å…¥winioåº“æ–‡ä»¶
 
 
 
@@ -36,17 +36,17 @@ int main(){
 
 	if (InitializeWinIo())
 	{
-		/*¶ÁÈ¡È«²¿*/
+		/*è¯»å–å…¨éƒ¨*/
 
 //		printf_a();
 
 
-		/*¶Ô¹Ì¶¨Éè±¸µÄ¶ÁÈ¡*/
+		/*å¯¹å›ºå®šè®¾å¤‡çš„è¯»å–*/
 
 		printfSpecDev();
 		ChangeValue1();
 		
-		/* ÔÙ´Î´òÓ¡ */
+		/* å†æ¬¡æ‰“å° */
 		printfSpecDev();
 
 
@@ -75,15 +75,15 @@ void printf_a()
 		{
 			for (func = 0; func < 8; func++)
 			{
-				dwAddr = 0x80000000 + (bus << 16) + (dev << 11) + (func << 8);//bus£¬dev£¬func¶¼ÊÇÎÒÃÇÉè¶¨µÄ³õÊ¼ÖµÈ»ºóĞèÒªÒÆ¶¯µ½32Î»µØÖ·¼Ä´æÆ÷ÖĞ
-				SetPortVal(PCI_CONFIG_ADDRESS, dwAddr, 4);//I/O¿ÚĞ´²Ù×÷£¬µÚÒ»¸ö¶Ë¿ÚµØÖ·£¬16Î»Õû±äÁ¿»ò³£Á¿£»µÚ¶ş¸öÎªÒªĞ´Èë¶Ë¿ÚµÄ32Î»ÕûĞÍ±äÁ¿»ò³£Á¿
-				GetPortVal(PCI_CONFIG_DATA, &dwData, 4);//I/O¶Á²Ù×÷£¬µÚÒ»¸öÎª¶Ë¿ÚµØÖ·£¬µÚ¶ş¸öÎª´æ·Å¶Ë¿ÚÄÚÈİµÄ32ÎªÕûĞÍ±äÁ¿Ö¸Õë
-				if (dwData != 0xffffffff) //Êı¾İÕâÀïÈç¹ûÈ«¡°1¡±£¬±íÊ¾ÎŞĞ§
+				dwAddr = 0x80000000 + (bus << 16) + (dev << 11) + (func << 8);//busï¼Œdevï¼Œfuncéƒ½æ˜¯æˆ‘ä»¬è®¾å®šçš„åˆå§‹å€¼ç„¶åéœ€è¦ç§»åŠ¨åˆ°32ä½åœ°å€å¯„å­˜å™¨ä¸­
+				SetPortVal(PCI_CONFIG_ADDRESS, dwAddr, 4);//I/Oå£å†™æ“ä½œï¼Œç¬¬ä¸€ä¸ªç«¯å£åœ°å€ï¼Œ16ä½æ•´å˜é‡æˆ–å¸¸é‡ï¼›ç¬¬äºŒä¸ªä¸ºè¦å†™å…¥ç«¯å£çš„32ä½æ•´å‹å˜é‡æˆ–å¸¸é‡
+				GetPortVal(PCI_CONFIG_DATA, &dwData, 4);//I/Oè¯»æ“ä½œï¼Œç¬¬ä¸€ä¸ªä¸ºç«¯å£åœ°å€ï¼Œç¬¬äºŒä¸ªä¸ºå­˜æ”¾ç«¯å£å†…å®¹çš„32ä¸ºæ•´å‹å˜é‡æŒ‡é’ˆ
+				if (dwData != 0xffffffff) //æ•°æ®è¿™é‡Œå¦‚æœå…¨â€œ1â€ï¼Œè¡¨ç¤ºæ— æ•ˆ
 				{
 					//						count++;
 					VID = dwData & 0xffff;
 					DID = (dwData >> 16) & 0xffff;
-					printf("%04x\t%04x\t%02x\t%02x\t%02x\t\n", VID, DID, bus, dev, func);  //02,04±íÊ¾²»×ã2£¬4Î»£¬Ç°Ãæ²¹0Êä³ö
+					printf("%04x\t%04x\t%02x\t%02x\t%02x\t\n", VID, DID, bus, dev, func);  //02,04è¡¨ç¤ºä¸è¶³2ï¼Œ4ä½ï¼Œå‰é¢è¡¥0è¾“å‡º
 				}
 			}
 		}
@@ -95,11 +95,11 @@ void printf_a()
 
 void ChangeValue1()
 {
-	dwAddr = 0x80000000 + (bus1 << 17) + (dev1 << 11) + (func1 << 8) + (0x10 << 2);
+	dwAddr = 0x80000000 + (bus1 << 17) + (dev1 << 11) + (func1 << 8) + (0x10 << 2);	//if offset , base address + (offset)
 	SetPortVal(PCI_CONFIG_ADDRESS, dwAddr, 4);
 	GetPortVal(PCI_CONFIG_DATA, &dwData, 4);
 	printf("  \n%08x\n", dwData);
-	dwData =(dwData | 0x0013) & 0x0013;				//È·¶¨dwDataµÄÖµ£¬Ö±½Ó¸³Öµ»áÊ¹ÏàÓ¦µØÖ·²»ÄÜ¸Ä±ä
+	dwData =(dwData | 0x0013) & 0x0013;				//ç¡®å®šdwDataçš„å€¼ï¼Œç›´æ¥èµ‹å€¼ä¼šä½¿ç›¸åº”åœ°å€ä¸èƒ½æ”¹å˜
 	SetPortVal(PCI_CONFIG_DATA, dwData, 2);
 	//		GetPortVal(PCI_CONFIG_DATA, &dwData, 4);
 	printf("  \n%08x\n", dwData);
